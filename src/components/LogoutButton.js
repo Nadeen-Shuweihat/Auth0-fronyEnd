@@ -7,9 +7,17 @@ function LogoutButton(props) {
 //     logout,
 //   } = useAuth0();
 
-  return  props.isAuth && (
-    <button onClick={props.LogoutFunc}>Log out</button>
-  );
+return (
+  props.isAuth && (
+    <button
+      onClick={() => {
+        props.LogoutFunc({ returnTo: window.location.origin });
+      }}
+    >
+      Log out
+    </button>
+  )
+);
 }
 
 export default LogoutButton;
