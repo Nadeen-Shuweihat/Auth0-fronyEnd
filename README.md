@@ -1,6 +1,6 @@
 # User Authentication with Auth0
 
-**Author**: Team Member Names Goes Here
+**Author**: Nadeen And Nura
 **Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
 
 ## Overview
@@ -25,10 +25,10 @@ Ibrahim Alderini , Maram Mustafa , Nura Tabajnih
 
 Name of feature: __________User Authentication with Auth0______________________
 
-Estimate of time needed to complete: __3___
+Estimate of time needed to complete: __1___
 
-Start time: _____
+Start time: __2___
 
-Finish time: _____
+Finish time: ___5__
 
-Actual time needed to complete: __2___
+Actual time needed to complete: __3__
