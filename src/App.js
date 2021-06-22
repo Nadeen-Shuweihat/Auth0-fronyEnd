@@ -17,7 +17,7 @@ class App extends React.Component {
       <div >
         <Router>
           {/* <IsLoadingAndError> */}
-            <Header isAuth={isAuthenticated} LogoutFunc={logout} />
+            <Header isAuth={isAuthenticated} logoutFunc={logout} />
             <Switch>
               <Route exact path="/">
                 {/* TODO: if the user is logged in, render the `MyFavoriteBooks` component, if they are not, render the `Login` component */}
