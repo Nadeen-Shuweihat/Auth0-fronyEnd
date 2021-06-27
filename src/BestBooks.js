@@ -4,13 +4,19 @@ import { Button,Card } from "react-bootstrap";
 import "./BestBooks.css";
 import axios from "axios";
 import BookFormModel from './components/BookFormModel';
-
+import UpdateModel from "./components/UpdateModel";
 
 class BestBooks extends React.Component {
   state = {
     data: [],
     showModal:false,
     err: "",
+    updateShow: false,
+    updateInfo: {},
+    name: "",
+    desc: "",
+    status: "",
+    id: "",
     
   };
 
@@ -51,7 +57,7 @@ class BestBooks extends React.Component {
         this.setState({ data: data.data });
       })
       .catch((err) => {
-        this.setState({ err: "there is an error" });
+        this.setState({ err: "There is an error" });
       });
   };
 
@@ -76,8 +82,49 @@ class BestBooks extends React.Component {
   }
 
   closeModal =()=> {
-    this.setState({closeModal:false})
+    this.setState({showModal:false , updateShow: false})
   }
+
+  showUpdateModal = (i) => {
+    let bookObj = this.state.data[i];
+    console.log(bookObj);
+
+    this.setState({
+      updateShow: true,
+      name: bookObj.name,
+      desc: bookObj.desc,
+      status: bookObj.status,
+      id: bookObj._id,
+    });
+  };
+
+  change = (e) => {
+    if (e.target.name === "bookName") {
+      this.setState({ name: e.target.value });
+    } else if (e.target.name === "bookDesc") {
+      this.setState({ desc: e.target.value });
+    } else if (e.target.name === "select") {
+      this.setState({ status: e.target.value });
+    }
+  };
+
+  updateData = (e) => {
+    e.preventDefault();
+    let id = this.state.id;
+    let serverURL = process.env.REACT_APP_SERVER;
+    let url = `${serverURL}/updatebooks/${id}`;
+
+    let updatedData = {
+      email: this.props.userEmail,
+      name: e.target.bookName.value,
+      desc: e.target.bookDesc.value,
+      status: e.target.select.value,
+    };
+    axios.put(url, updatedData).then((data) => {
+      this.setState({ data: data.data})
+      console.log(data.data);
+    });
+  };
 
   render() {
     //  this.getData();
@@ -100,6 +147,13 @@ class BestBooks extends React.Component {
                   >
                     Delete
                   </Button>
+                  <Button
+                    variant="primary"
+                    name={i}
+                    onClick={() => this.showUpdateModal(i)}
+                  >
+                    UpDate
+                  </Button>
                 </Card.Body>
                 <Card.Footer className="text-muted">{book.status}</Card.Footer>
               </Card>
@@ -107,9 +161,18 @@ class BestBooks extends React.Component {
           })}
         </div>
         <BookFormModel
-          show={this.state.showModel}
-          closeFunc={this.closeModel}
+          show={this.state.showModal}
+          close={this.closeModal}
           postFunc={this.postData}
+        />
+        <UpdateModel
+          show={this.state.updateShow}
+          close={this.closeModal}
+          name={this.state.name}
+          desc={this.state.desc}
+          status={this.state.status}
+          changeFunc={this.change}
+          updateFunc={this.updateData}
         />
       </>
     );

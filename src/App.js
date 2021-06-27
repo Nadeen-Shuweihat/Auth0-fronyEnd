@@ -1,9 +1,10 @@
 import React from "react";
 import Header from "./Header";
-import IsLoadingAndError from "./IsLoadingAndError";
 import Footer from "./Footer";
+
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { withAuth0 } from "@auth0/auth0-react";
+
 import BestBooks from "./BestBooks.js";
 import Login from "./Login.js";
 import Profile from './components/Profile';
@@ -16,7 +17,7 @@ class App extends React.Component {
     return (
       <div >
         <Router>
-          {/* <IsLoadingAndError> */}
+         
             <Header isAuth={isAuthenticated} logoutFunc={logout} />
             <Switch>
               <Route exact path="/">
@@ -36,7 +37,7 @@ class App extends React.Component {
               </Route>
             </Switch>
             <Footer />
-          {/* </IsLoadingAndError> */}
+        
         </Router>
       </div>
     );
